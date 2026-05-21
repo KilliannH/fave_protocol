@@ -1,4 +1,4 @@
-{
+export default {
   "nav": {
     "protocol": "Protocole",
     "tokenomics": "Tokenomics",
@@ -169,4 +169,4 @@
     "sec5": "Audit de sécurité externe — prévu avant mainnet",
     "become_creator": "Créer ma membership"
   }
-}
+} as const;
