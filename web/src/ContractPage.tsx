@@ -2,8 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Nav from "./Nav";
-
-const PROGRAM_ID = "3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU";
+import {
+  FAVE_TOKEN_MINT,
+  FAVE_PROGRAM_ID,
+  FAVE_TOTAL_SUPPLY,
+  FAVE_DECIMALS,
+  SOLSCAN_TOKEN,
+  EXPLORER_TOKEN,
+} from "./constants";
 
 const INSTRUCTIONS = [
   { name: "initialize_membership", desc: "Déploie une membership avec 3 niveaux et leurs mints SPL", args: ["name: String", "price_bronze: u64", "price_silver: u64", "price_gold: u64"] },
@@ -13,8 +19,8 @@ const INSTRUCTIONS = [
 ];
 
 export default function ContractPage() {
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -23,47 +29,93 @@ export default function ContractPage() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #080808; color: #e8e8e0; font-family: 'DM Sans', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
-        .card { background: #0c0c0c; border: 1px solid rgba(255,215,0,0.08); border-radius: 12px; padding: 2rem; }
-        a { color: #FFD700; text-decoration: none; } a:hover { text-decoration: underline; }
+        .card { background: #0c0c0c; border: 1px solid rgba(255,215,0,0.08); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+        a { color: #FFD700; text-decoration: none; }
+        a:hover { text-decoration: underline; }
       `}</style>
 
       <Nav />
 
-      <div style={{ maxWidth: 860, margin: "4rem auto", padding: "0 2rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
-        <div>
-          <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "1rem" }}>Contrat</span>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.5rem", fontWeight: 700, marginBottom: "0.75rem" }}>Fave Protocol</h1>
-          <p style={{ color: "#666", lineHeight: 1.7 }}>Smart contract déployé sur Solana. Open source, auditable, immuable.</p>
-        </div>
+      <div style={{ maxWidth: 860, margin: "4rem auto", padding: "0 2rem" }}>
+        <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "1rem" }}>
+          {t("contract_page.label")}
+        </span>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.5rem", fontWeight: 700, marginBottom: "0.75rem" }}>
+          {t("contract_page.title")}
+        </h1>
+        <p style={{ color: "#666", lineHeight: 1.7, marginBottom: "2rem" }}>{t("contract_page.description")}</p>
 
-        {/* Adresses */}
+        {/* Programme */}
         <div className="card">
-          <h2 style={{ fontSize: "1rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase", fontSize: "0.8rem" }}>Adresses</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <h2 style={{ fontSize: "0.8rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            {t("contract_page.addresses")}
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
             {[
-              { label: "Program ID", value: PROGRAM_ID, cluster: "devnet" },
-              { label: "Réseau", value: "Solana Devnet (→ Mainnet bientôt)" },
-              { label: "Langage", value: "Rust / Anchor 0.31.0" },
+              { label: t("contract_page.program_id"), value: FAVE_PROGRAM_ID, link: `https://explorer.solana.com/address/${FAVE_PROGRAM_ID}?cluster=devnet` },
+              { label: t("contract_page.network"), value: t("contract_page.network_value") },
+              { label: t("contract_page.language"), value: "Rust / Anchor 0.31.0" },
             ].map((item, i) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-                padding: "0.75rem 0", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+                padding: "0.875rem 0", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
                 <span style={{ color: "#666", fontSize: "0.875rem" }}>{item.label}</span>
-                {item.cluster ? (
-                  <a className="mono" href={`https://explorer.solana.com/address/${item.value}?cluster=${item.cluster}`} target="_blank"
-                    style={{ fontSize: "0.85rem", color: "#FFD700" }}>
+                {item.link ? (
+                  <a className="mono" href={item.link} target="_blank" style={{ fontSize: "0.82rem" }}>
                     {item.value.slice(0, 20)}...{item.value.slice(-6)} ↗
                   </a>
                 ) : (
-                  <span className="mono" style={{ fontSize: "0.85rem", color: "#ccc" }}>{item.value}</span>
+                  <span className="mono" style={{ fontSize: "0.82rem", color: "#ccc" }}>{item.value}</span>
                 )}
               </div>
             ))}
           </div>
         </div>
 
+        {/* Token $FAVE */}
+        <div className="card">
+          <h2 style={{ fontSize: "0.8rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            Token $FAVE — Mainnet
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+            {[
+              { label: "Mint address", value: FAVE_TOKEN_MINT, link: EXPLORER_TOKEN },
+              { label: "Réseau", value: "Solana Mainnet" },
+              { label: "Supply totale", value: `${FAVE_TOTAL_SUPPLY.toLocaleString()} $FAVE` },
+              { label: "Décimales", value: String(FAVE_DECIMALS) },
+              { label: "Mint authority", value: "Révoquée ✓ — supply fixée" },
+            ].map((item, i, arr) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
+                padding: "0.875rem 0", borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+                <span style={{ color: "#666", fontSize: "0.875rem" }}>{item.label}</span>
+                {item.link ? (
+                  <a className="mono" href={item.link} target="_blank" style={{ fontSize: "0.82rem" }}>
+                    {item.value.slice(0, 20)}...{item.value.slice(-6)} ↗
+                  </a>
+                ) : (
+                  <span className="mono" style={{ fontSize: "0.82rem", color: item.value.includes("✓") ? "#4a4" : "#ccc" }}>
+                    {item.value}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: "1.25rem", display: "flex", gap: "0.75rem" }}>
+            <a href={EXPLORER_TOKEN} target="_blank"
+              style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.5rem 1rem", fontSize: "0.82rem", color: "#ccc" }}>
+              Solana Explorer ↗
+            </a>
+            <a href={SOLSCAN_TOKEN} target="_blank"
+              style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.5rem 1rem", fontSize: "0.82rem", color: "#ccc" }}>
+              Solscan ↗
+            </a>
+          </div>
+        </div>
+
         {/* Instructions */}
         <div className="card">
-          <h2 style={{ fontSize: "0.8rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase" }}>Instructions</h2>
+          <h2 style={{ fontSize: "0.8rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            {t("contract_page.instructions")}
+          </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {INSTRUCTIONS.map((ix, i) => (
               <div key={i} style={{ paddingBottom: i < INSTRUCTIONS.length - 1 ? "1.5rem" : 0,
@@ -87,14 +139,16 @@ export default function ContractPage() {
 
         {/* Sécurité */}
         <div className="card">
-          <h2 style={{ fontSize: "0.8rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase" }}>Sécurité</h2>
+          <h2 style={{ fontSize: "0.8rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            {t("contract_page.security")}
+          </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             {[
-              { ok: true,  label: "Signatures ECDSA validées on-chain" },
-              { ok: true,  label: "PDAs dérivées — pas d'adresses arbitraires" },
-              { ok: true,  label: "Protection overflow sur tous les calculs" },
-              { ok: true,  label: "Seul le créateur peut modifier ses prix" },
-              { ok: false, label: "Audit de sécurité externe — prévu avant mainnet" },
+              { ok: true,  label: t("contract_page.sec1") },
+              { ok: true,  label: t("contract_page.sec2") },
+              { ok: true,  label: t("contract_page.sec3") },
+              { ok: true,  label: t("contract_page.sec4") },
+              { ok: false, label: t("contract_page.sec5") },
             ].map((item, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <span style={{ color: item.ok ? "#4a4" : "#a84", fontSize: "0.85rem" }}>{item.ok ? "✓" : "○"}</span>
@@ -110,9 +164,9 @@ export default function ContractPage() {
             style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.75rem 1.5rem", color: "#ccc", fontSize: "0.9rem" }}>
             GitHub →
           </a>
-          <a href={`https://explorer.solana.com/address/${PROGRAM_ID}?cluster=devnet`} target="_blank"
+          <a href={`https://explorer.solana.com/address/${FAVE_PROGRAM_ID}?cluster=devnet`} target="_blank"
             style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.75rem 1.5rem", color: "#ccc", fontSize: "0.9rem" }}>
-            Solana Explorer →
+            Programme devnet →
           </a>
         </div>
       </div>

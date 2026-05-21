@@ -278,7 +278,7 @@ export default function LandingPage() {
             <div style={{ marginTop: "3rem", paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.5rem" }}>
                 {[
-                  { label: "Adresse du contrat", value: "3qqA8JT...LnS" },
+                  { label: "Adresse du contrat", value: "CCsfkVF...vXt" },
                   { label: "Blockchain", value: "Solana" },
                   { label: "Décimales", value: "6" },
                   { label: "Mint authority", value: "Révoquée ✓" },

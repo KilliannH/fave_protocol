@@ -1,0 +1,14 @@
+export const FAVE_TOKEN_MINT = "CCsfkVFgr3EGyctYJ9mqoy1iFyVgXzoXB6U2THnAmvXt";
+export const FAVE_PROGRAM_ID = "3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU";
+export const PROTOCOL_TREASURY = "D9P8Uqmxvtg9mr16GGFA2z7fFwWBYKuDMFpDYioiVFbt";
+export const NETWORK = "devnet"; // → "mainnet-beta" quand on bascule
+export const FAVE_TOTAL_SUPPLY = 100_000_000;
+export const FAVE_DECIMALS = 6;
+
+export const EXPLORER_BASE = {
+  devnet: "https://explorer.solana.com/?cluster=devnet",
+  mainnet: "https://explorer.solana.com",
+};
+
+export const SOLSCAN_TOKEN = `https://solscan.io/token/${FAVE_TOKEN_MINT}`;
+export const EXPLORER_TOKEN = `https://explorer.solana.com/address/${FAVE_TOKEN_MINT}`;
