@@ -5,8 +5,10 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { PublicKey, SystemProgram, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
+import { useTranslation } from "react-i18next";
 import idl from "./idl";
 import { getCreator, registerSubscription } from "./api";
+import LangSwitcher from "./LangSwitcher";
 
 const PROGRAM_ID = new PublicKey("3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU");
 const PROTOCOL_TREASURY = new PublicKey("D9P8Uqmxvtg9mr16GGFA2z7fFwWBYKuDMFpDYioiVFbt");
@@ -14,9 +16,9 @@ const PROTOCOL_TREASURY = new PublicKey("D9P8Uqmxvtg9mr16GGFA2z7fFwWBYKuDMFpDYio
 type Tier = "bronze" | "silver" | "gold";
 
 const TIER_CONFIG = {
-  bronze: { label: "Bronze", color: "#CD7F32", bg: "#2a1f0f", perks: ["Accès au contenu exclusif", "Badge fan"] },
-  silver: { label: "Silver", color: "#C0C0C0", bg: "#1a1a1f", perks: ["Tout Bronze", "Vote sur le prochain contenu", "Discord privé"] },
-  gold:   { label: "Gold",   color: "#FFD700", bg: "#1f1a00", perks: ["Tout Silver", "Lives privés", "Mention dans les vidéos"] },
+  bronze: { label: "Bronze", color: "#CD7F32", bg: "#2a1f0f", perks: ["bronze_perk1", "bronze_perk2"] },
+  silver: { label: "Silver", color: "#C0C0C0", bg: "#1a1a1f", perks: ["silver_perk1", "silver_perk2", "silver_perk3"] },
+  gold:   { label: "Gold",   color: "#FFD700", bg: "#1f1a00", perks: ["gold_perk1", "gold_perk2", "gold_perk3"] },
 };
 
 interface MembershipInfo {
@@ -25,6 +27,12 @@ interface MembershipInfo {
   priceSilver: number;
   priceGold: number;
   totalSold: number;
+  bannerUrl?: string;
+  avatarUrl?: string;
+  bio?: string;
+  twitter?: string;
+  youtube?: string;
+  twitch?: string;
 }
 
 interface SubInfo {
@@ -36,10 +44,12 @@ interface SubInfo {
 export default function CreatorPage() {
   const { address } = useParams<{ address: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { connection } = useConnection();
   const wallet = useWallet();
 
   const [membership, setMembership] = useState<MembershipInfo | null>(null);
+  const [dbProfile, setDbProfile] = useState<any>(null);
   const [subscription, setSubscription] = useState<SubInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -68,6 +78,7 @@ export default function CreatorPage() {
   useEffect(() => {
     if (!creatorKey) { setNotFound(true); setFetching(false); return; }
     loadMembership();
+    loadDbProfile();
   }, [address]);
 
   useEffect(() => {
@@ -93,6 +104,12 @@ export default function CreatorPage() {
       setNotFound(true);
     }
     setFetching(false);
+  };
+
+  const loadDbProfile = async () => {
+    if (!address) return;
+    const profile = await getCreator(address);
+    if (profile) setDbProfile(profile);
   };
 
   const loadSubscription = async () => {
@@ -149,7 +166,7 @@ export default function CreatorPage() {
   if (fetching) return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
       background: "#080808", color: "#666", fontFamily: "DM Sans, sans-serif" }}>
-      Chargement...
+      {t("creators_page.loading")}
     </div>
   );
 
@@ -182,34 +199,78 @@ export default function CreatorPage() {
         padding: "1.25rem 2rem", borderBottom: "1px solid rgba(255,215,0,0.08)",
         background: "rgba(8,8,8,0.95)", position: "sticky", top: 0, zIndex: 50 }}>
         <div onClick={() => navigate("/")} style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#FFD700", cursor: "pointer" }}>⭐ Fave</div>
-        <WalletMultiButton />
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          <LangSwitcher />
+          <WalletMultiButton />
+        </div>
       </nav>
 
-      <main style={{ maxWidth: 800, margin: "0 auto", padding: "3rem 2rem" }}>
+      <main style={{ maxWidth: 800, margin: "0 auto", padding: "0 2rem 3rem" }}>
 
-        {/* Header créateur */}
-        <div style={{ marginBottom: "3rem" }}>
-        {membership && (membership as any).banner_url && (
-          <div style={{ width: "100%", height: 200, borderRadius: 12, overflow: "hidden", marginBottom: "1.5rem" }}>
-            <img src={(membership as any).banner_url} alt="banner" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        {/* Bannière */}
+        {dbProfile?.banner_url && (
+          <div style={{ width: "100%", height: 220, overflow: "hidden", marginBottom: "0" }}>
+            <img src={dbProfile.banner_url} alt="banner"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
         )}
-        <div style={{ textAlign: "center" }}>
-          <div style={{ width: 80, height: 80, borderRadius: "50%",
-            background: "linear-gradient(135deg, #FFD700, #CD7F32)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "2rem", fontWeight: 700, margin: "0 auto 1rem", color: "#080808",
-            fontFamily: "'Playfair Display', serif" }}>
-            {membership!.name.charAt(0).toUpperCase()}
-          </div>
+
+        {/* Header créateur */}
+        <div style={{ textAlign: "center", padding: "2rem 0 2rem", position: "relative" }}>
+          {dbProfile?.avatar_url ? (
+            <img src={dbProfile.avatar_url} alt="avatar"
+              style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover",
+                margin: "0 auto 1rem", display: "block",
+                border: "3px solid #080808",
+                marginTop: dbProfile?.banner_url ? "-40px" : "0" }} />
+          ) : (
+            <div style={{ width: 80, height: 80, borderRadius: "50%",
+              background: "linear-gradient(135deg, #FFD700, #CD7F32)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: "2rem", fontWeight: 700, margin: "0 auto 1rem", color: "#080808",
+              fontFamily: "'Playfair Display', serif",
+              border: "3px solid #080808",
+              marginTop: dbProfile?.banner_url ? "-40px" : "0" }}>
+              {membership!.name.charAt(0).toUpperCase()}
+            </div>
+          )}
+
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.2rem", marginBottom: "0.5rem" }}>
             {membership!.name}
           </h1>
-          <p style={{ color: "#555", fontSize: "0.85rem", fontFamily: "monospace" }}>
+
+          {dbProfile?.bio && (
+            <p style={{ color: "#888", fontSize: "0.9rem", maxWidth: 400, margin: "0 auto 0.75rem", lineHeight: 1.6 }}>
+              {dbProfile.bio}
+            </p>
+          )}
+
+          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "0.75rem", flexWrap: "wrap" }}>
+            {dbProfile?.twitter && (
+              <a href={`https://twitter.com/${dbProfile.twitter.replace("@", "")}`} target="_blank"
+                style={{ color: "#555", fontSize: "0.8rem", textDecoration: "none" }}>
+                𝕏 {dbProfile.twitter}
+              </a>
+            )}
+            {dbProfile?.youtube && (
+              <a href={`https://youtube.com/${dbProfile.youtube}`} target="_blank"
+                style={{ color: "#555", fontSize: "0.8rem", textDecoration: "none" }}>
+                ▶ {dbProfile.youtube}
+              </a>
+            )}
+            {dbProfile?.twitch && (
+              <a href={`https://twitch.tv/${dbProfile.twitch}`} target="_blank"
+                style={{ color: "#555", fontSize: "0.8rem", textDecoration: "none" }}>
+                💜 {dbProfile.twitch}
+              </a>
+            )}
+          </div>
+
+          <p style={{ color: "#555", fontSize: "0.8rem", fontFamily: "monospace" }}>
             {address?.slice(0, 8)}...{address?.slice(-6)}
           </p>
           <p style={{ color: "#666", fontSize: "0.85rem", marginTop: "0.5rem" }}>
-            {membership!.totalSold} abonné{membership!.totalSold > 1 ? "s" : ""}
+            {membership!.totalSold} {t("creator_page.subscribers_plural")}
           </p>
         </div>
 
@@ -218,9 +279,9 @@ export default function CreatorPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
             background: "#0a180a", border: "1px solid #1a3a1a", borderRadius: 8,
             padding: "0.875rem 1.25rem", marginBottom: "2rem", fontSize: "0.9rem" }}>
-            <span>⭐ Abonné <strong style={{ color: TIER_CONFIG[subscription.tier].color }}>{TIER_CONFIG[subscription.tier].label}</strong></span>
+            <span>⭐ {t("creator_page.active_badge")} <strong style={{ color: TIER_CONFIG[subscription.tier].color }}>{TIER_CONFIG[subscription.tier].label}</strong></span>
             <span style={{ color: "#555", fontSize: "0.8rem" }}>
-              Expire le {subscription.expiresAt.toLocaleDateString("fr-FR")}
+              {t("creator_page.expires")} {subscription.expiresAt.toLocaleDateString()}
             </span>
           </div>
         )}
@@ -235,19 +296,19 @@ export default function CreatorPage() {
             return (
               <div key={tier} style={{ border: `1px solid ${isCurrent ? config.color : config.color + "33"}`,
                 borderRadius: 10, padding: "1.5rem", background: config.bg,
-                boxShadow: isCurrent ? `0 0 20px ${config.color}22` : "none",
-                transition: "transform 0.2s" }}>
+                boxShadow: isCurrent ? `0 0 20px ${config.color}22` : "none" }}>
                 <div style={{ color: config.color, fontFamily: "'Playfair Display', serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.25rem" }}>
                   {config.label}
                 </div>
                 <div style={{ fontSize: "1.75rem", fontWeight: 700, marginBottom: "1.25rem" }}>
                   {formatPrice(price)}
-                  <span style={{ fontSize: "0.8rem", color: "#666", fontWeight: 400 }}>/mois</span>
+                  <span style={{ fontSize: "0.8rem", color: "#666", fontWeight: 400 }}>{t("tiers.per_month")}</span>
                 </div>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.5rem", marginBottom: "1.5rem" }}>
-                  {config.perks.map((perk, j) => (
+                  {config.perks.map((perkKey, j) => (
                     <li key={j} style={{ color: "#aaa", fontSize: "0.85rem", display: "flex", gap: "0.5rem" }}>
-                      <span style={{ color: config.color, fontSize: "0.65rem", marginTop: "0.2rem" }}>✦</span>{perk}
+                      <span style={{ color: config.color, fontSize: "0.65rem", marginTop: "0.2rem" }}>✦</span>
+                      {t(`tiers.${perkKey}`)}
                     </li>
                   ))}
                 </ul>
@@ -256,7 +317,7 @@ export default function CreatorPage() {
                   border: isCurrent ? `1px solid ${config.color}44` : "none" }}
                   disabled={loading || isCurrent || !wallet.publicKey}
                   onClick={() => handleBuy(tier)}>
-                  {isCurrent ? "Actif ✓" : !wallet.publicKey ? "Connecte ton wallet" : loading ? "Transaction..." : `S'abonner`}
+                  {isCurrent ? t("creator_page.active") : !wallet.publicKey ? t("creator_page.connect_wallet") : loading ? t("creator_page.transaction") : t("creator_page.subscribe")}
                 </button>
               </div>
             );
@@ -270,8 +331,8 @@ export default function CreatorPage() {
             borderRadius: 8, fontSize: "0.82rem", fontFamily: "monospace",
             color: txMsg.startsWith("error:") ? "#ff8888" : "#88ff88", wordBreak: "break-all" }}>
             {txMsg.startsWith("error:") ? txMsg.replace("error:", "❌ ") : (
-              <>✅ Transaction confirmée — <a href={`https://explorer.solana.com/tx/${txMsg}?cluster=devnet`}
-                target="_blank" style={{ color: "#FFD700" }}>voir sur Explorer →</a></>
+              <>✅ {t("creator_page.tx_confirmed")} <a href={`https://explorer.solana.com/tx/${txMsg}?cluster=devnet`}
+                target="_blank" style={{ color: "#FFD700" }}>{t("creator_page.view_explorer")}</a></>
             )}
           </div>
         )}
@@ -280,15 +341,15 @@ export default function CreatorPage() {
         <div style={{ marginTop: "3rem", paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.06)",
           display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <p style={{ color: "#555", fontSize: "0.8rem", marginBottom: "0.25rem" }}>Lien de ta page</p>
+            <p style={{ color: "#555", fontSize: "0.8rem", marginBottom: "0.25rem" }}>{t("creator_page.your_link")}</p>
             <code style={{ color: "#888", fontSize: "0.8rem" }}>
               faveprotocol.xyz/creator/{address?.slice(0, 12)}...
             </code>
           </div>
-          <button onClick={() => { navigator.clipboard.writeText(`https://faveprotocol.xyz/creator/${address}`); }}
+          <button onClick={() => navigator.clipboard.writeText(`https://faveprotocol.xyz/creator/${address}`)}
             style={{ background: "transparent", border: "1px solid #333", borderRadius: 4,
               padding: "0.5rem 1rem", color: "#888", cursor: "pointer", fontSize: "0.85rem" }}>
-            Copier le lien
+            {t("creator_page.copy_link")}
           </button>
         </div>
       </main>
