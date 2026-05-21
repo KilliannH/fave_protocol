@@ -8,7 +8,7 @@ export default {
     "launch": "Launch app"
   },
   "hero": {
-    "badge": "DEVNET — MAINNET SOON",
+    "badge": "MAINNET",
     "title1": "Monetize your",
     "title2": "audience.",
     "title3": "Without middlemen.",
@@ -71,12 +71,12 @@ export default {
   "cta": {
     "title1": "Ready to join",
     "title2": "the next wave?",
-    "description": "Fave is on devnet. The first creators who adopt the protocol will receive a $FAVE allocation.",
+    "description": "Fave is live on Solana mainnet. The first creators who adopt the protocol will receive a $FAVE allocation.",
     "primary": "Become an early adopter creator",
     "secondary": "Explore the app →"
   },
   "footer": {
-    "open_source": "Open source protocol — Solana devnet"
+    "open_source": "Open source protocol — Solana mainnet"
   },
   "creators_page": {
     "label": "Discover",

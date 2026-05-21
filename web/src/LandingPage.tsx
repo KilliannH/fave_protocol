@@ -163,7 +163,7 @@ export default function LandingPage() {
             borderRadius: "100px", padding: "0.35rem 1rem", fontSize: "0.75rem", color: "#FFD700",
             letterSpacing: "0.05em", marginBottom: "2rem", animation: "fadeIn 0.8s ease 0.2s both" }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#FFD700", display: "inline-block" }} />
-            { t('hero.badge') }
+            { 'MAINNET' }
           </div>
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(3rem, 7vw, 5.5rem)",
             fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", marginBottom: "1.5rem",
@@ -303,7 +303,7 @@ export default function LandingPage() {
             Prêt à rejoindre<br /><span style={{ color: "#FFD700" }}>la prochaine vague ?</span>
           </h2>
           <p style={{ color: "#666", fontSize: "1rem", maxWidth: 400, margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
-            Fave est en devnet. Les premiers créateurs qui adoptent le protocole recevront une allocation de $FAVE.
+            Fave est sur Solana mainnet. Les premiers créateurs qui adoptent le protocole recevront une allocation de $FAVE.
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <button className="btn-primary" style={{ fontSize: "1.1rem", padding: "1rem 2.5rem" }} onClick={() => navigate("/create")}>

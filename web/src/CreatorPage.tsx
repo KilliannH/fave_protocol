@@ -322,7 +322,7 @@ export default function CreatorPage() {
             borderRadius: 8, fontSize: "0.82rem", fontFamily: "monospace",
             color: txMsg.startsWith("error:") ? "#ff8888" : "#88ff88", wordBreak: "break-all" }}>
             {txMsg.startsWith("error:") ? txMsg.replace("error:", "❌ ") : (
-              <>✅ {t("creator_page.tx_confirmed")} <a href={`https://explorer.solana.com/tx/${txMsg}?cluster=devnet`}
+              <>✅ {t("creator_page.tx_confirmed")} <a href={`https://explorer.solana.com/tx/${txMsg}`}
                 target="_blank" style={{ color: "#FFD700" }}>{t("creator_page.view_explorer")}</a></>
             )}
           </div>

@@ -11,11 +11,12 @@ import CreateMembership from "./CreateMembership";
 import ContractPage from "./ContractPage";
 import ProfilePage from "./ProfilePage";
 import DashboardPage from "./DashboardPage";
+import { NETWORK } from "./constants";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import "./styles.css";
 
 export default function App() {
-  const endpoint = clusterApiUrl("devnet");
+  const endpoint = clusterApiUrl(NETWORK as any);
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 
   return (

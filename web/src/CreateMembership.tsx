@@ -110,7 +110,7 @@ export default function CreateMembership() {
             <p style={{ color: "#666", fontSize: "0.85rem", marginBottom: "1.5rem", fontFamily: "monospace", wordBreak: "break-all" }}>
               Tx : {success}
             </p>
-            <a href={`https://explorer.solana.com/tx/${success}?cluster=devnet`} target="_blank"
+            <a href={`https://explorer.solana.com/tx/${success}`} target="_blank"
               style={{ color: "#FFD700", fontSize: "0.85rem", display: "block", marginBottom: "1.5rem" }}>
               Voir sur Solana Explorer →
             </a>

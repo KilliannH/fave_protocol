@@ -8,7 +8,7 @@ export default {
     "launch": "Lancer l'app"
   },
   "hero": {
-    "badge": "DEVNET — BIENTÔT MAINNET",
+    "badge": "MAINNET",
     "title1": "Monétise ton",
     "title2": "audience.",
     "title3": "Sans intermédiaire.",
@@ -71,12 +71,12 @@ export default {
   "cta": {
     "title1": "Prêt à rejoindre",
     "title2": "la prochaine vague ?",
-    "description": "Fave est en devnet. Les premiers créateurs qui adoptent le protocole recevront une allocation de $FAVE.",
+    "description": "Fave est sur Solana mainnet. Les premiers créateurs qui adoptent le protocole recevront une allocation de $FAVE.",
     "primary": "Devenir créateur early adopter",
     "secondary": "Explorer l'app →"
   },
   "footer": {
-    "open_source": "Protocole open source — Solana devnet"
+    "open_source": "Protocole open source — Solana mainnet"
   },
   "creators_page": {
     "label": "Découvrir",
