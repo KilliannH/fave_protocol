@@ -138,6 +138,7 @@ export default function LandingPage() {
       <nav>
         <div className="nav-logo" onClick={() => navigate("/")}>⭐ Fave</div>
         <div className="nav-links">
+          <a onClick={() => navigate("/creators")} style={{color:"#888",fontSize:"0.875rem",textDecoration:"none",letterSpacing:"0.05em",textTransform:"uppercase",cursor:"pointer"}}>Créateurs</a>
           <a onClick={() => document.getElementById("protocol")?.scrollIntoView({ behavior: "smooth" })}>Protocole</a>
           <a onClick={() => document.getElementById("tokenomics")?.scrollIntoView({ behavior: "smooth" })}>Tokenomics</a>
           <a onClick={() => document.getElementById("tiers")?.scrollIntoView({ behavior: "smooth" })}>Membership</a>
