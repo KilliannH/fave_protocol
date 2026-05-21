@@ -2,11 +2,11 @@
 anchor_version = "0.30.0"
 
 [features]
-seeds = false
+resolution = true
 skip-lint = false
 
 [programs.localnet]
-fave_protocol = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+fave_protocol = "3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU"
 
 [registry]
 url = "https://api.apr.dev"
