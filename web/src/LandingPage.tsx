@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getStats, getCreators, type Creator, type Stats } from "./api";
 
 const TOKENOMICS = [
   { label: "Communauté & créateurs", pct: 40, color: "#FFD700", desc: "Airdrop aux premiers créateurs qui adoptent le protocole" },
@@ -89,6 +90,13 @@ function TokenomicsChart() {
 export default function LandingPage() {
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [creators, setCreators] = useState<Creator[]>([]);
+
+  useEffect(() => {
+    getStats().then(setStats).catch(() => {});
+    getCreators().then(setCreators).catch(() => {});
+  }, []);
   useEffect(() => {
     const handler = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handler, { passive: true });

@@ -54,6 +54,13 @@ export default function CreateMembership() {
         })
         .rpc();
       setSuccess(tx);
+      await registerCreator({
+        wallet_address: wallet.publicKey!.toBase58(),
+        name,
+        price_bronze: parseFloat(priceBronze) * LAMPORTS_PER_SOL,
+        price_silver: parseFloat(priceSilver) * LAMPORTS_PER_SOL,
+        price_gold: parseFloat(priceGold) * LAMPORTS_PER_SOL,
+      });
     } catch (e: any) {
       setError(e.message);
     }
@@ -155,3 +162,4 @@ export default function CreateMembership() {
     </>
   );
 }
+// À ajouter dans handleCreate après le rpc() réussi

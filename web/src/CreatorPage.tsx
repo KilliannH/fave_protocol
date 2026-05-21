@@ -6,6 +6,7 @@ import { PublicKey, SystemProgram, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
 import idl from "./idl";
+import { getCreator, registerSubscription } from "./api";
 
 const PROGRAM_ID = new PublicKey("3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU");
 const PROTOCOL_TREASURY = new PublicKey("D9P8Uqmxvtg9mr16GGFA2z7fFwWBYKuDMFpDYioiVFbt");
@@ -129,6 +130,13 @@ export default function CreatorPage() {
         })
         .rpc();
       setTxMsg(tx);
+      await registerSubscription({
+        fan_address: wallet.publicKey!.toBase58(),
+        creator_address: creatorKey.toBase58(),
+        tier,
+        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        tx_signature: tx,
+      });
       await loadSubscription();
     } catch (e: any) {
       setTxMsg(`error:${e.message}`);
