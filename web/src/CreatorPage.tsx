@@ -188,7 +188,13 @@ export default function CreatorPage() {
       <main style={{ maxWidth: 800, margin: "0 auto", padding: "3rem 2rem" }}>
 
         {/* Header créateur */}
-        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+        <div style={{ marginBottom: "3rem" }}>
+        {membership && (membership as any).banner_url && (
+          <div style={{ width: "100%", height: 200, borderRadius: 12, overflow: "hidden", marginBottom: "1.5rem" }}>
+            <img src={(membership as any).banner_url} alt="banner" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+        )}
+        <div style={{ textAlign: "center" }}>
           <div style={{ width: 80, height: 80, borderRadius: "50%",
             background: "linear-gradient(135deg, #FFD700, #CD7F32)",
             display: "flex", alignItems: "center", justifyContent: "center",

@@ -50,6 +50,7 @@ export const registerCreator = async (data: {
   wallet_address: string;
   name: string;
   bio?: string;
+  banner_url?: string;
   avatar_url?: string;
   twitter?: string;
   youtube?: string;
@@ -68,6 +69,7 @@ export const registerCreator = async (data: {
 
 export const updateCreator = async (address: string, data: {
   bio?: string;
+  banner_url?: string;
   avatar_url?: string;
   twitter?: string;
   youtube?: string;
