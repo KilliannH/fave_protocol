@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LangSwitcher from "./LangSwitcher";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { PublicKey, SystemProgram, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+import idl from "./idl";
+import { registerCreator } from "./api";
 
 
 const PROGRAM_ID = new PublicKey("3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU");
@@ -14,6 +18,7 @@ export default function CreateMembership() {
   const { connection } = useConnection();
   const wallet = useWallet();
 
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [priceBronze, setPriceBronze] = useState("0.01");
   const [priceSilver, setPriceSilver] = useState("0.05");

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LangSwitcher from "./LangSwitcher";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { getCreator, updateCreator, type Creator } from "./api";
@@ -7,6 +9,7 @@ import { getCreator, updateCreator, type Creator } from "./api";
 export default function ProfilePage() {
   const navigate = useNavigate();
   const wallet = useWallet();
+  const { t } = useTranslation();
   const [creator, setCreator] = useState<Creator | null>(null);
   const [bio, setBio] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");

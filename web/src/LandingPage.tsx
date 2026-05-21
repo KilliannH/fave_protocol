@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LangSwitcher from "./LangSwitcher";
 import { getStats, getCreators, type Creator, type Stats } from "./api";
 
 const TOKENOMICS = [
@@ -89,6 +91,7 @@ function TokenomicsChart() {
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [scrollY, setScrollY] = useState(0);
   const [stats, setStats] = useState<Stats | null>(null);
   const [creators, setCreators] = useState<Creator[]>([]);
@@ -139,13 +142,13 @@ export default function LandingPage() {
         <div className="nav-logo" onClick={() => navigate("/")}>⭐ Fave</div>
         <div className="nav-links">
           <a onClick={() => navigate("/creators")} style={{color:"#888",fontSize:"0.875rem",textDecoration:"none",letterSpacing:"0.05em",textTransform:"uppercase",cursor:"pointer"}}>Créateurs</a>
-          <a onClick={() => document.getElementById("protocol")?.scrollIntoView({ behavior: "smooth" })}>Protocole</a>
-          <a onClick={() => document.getElementById("tokenomics")?.scrollIntoView({ behavior: "smooth" })}>Tokenomics</a>
-          <a onClick={() => document.getElementById("tiers")?.scrollIntoView({ behavior: "smooth" })}>Membership</a>
+          <a onClick={() => document.getElementById("protocol")?.scrollIntoView({ behavior: "smooth" })}>{ t('nav.protocol') }</a>
+          <a onClick={() => document.getElementById("tokenomics")?.scrollIntoView({ behavior: "smooth" })}>{ t('nav.tokenomics') }</a>
+          <a onClick={() => document.getElementById("tiers")?.scrollIntoView({ behavior: "smooth" })}>{ t('nav.membership') }</a>
         </div>
         <div style={{ display: "flex", gap: "0.75rem" }}>
-          <button className="btn-outline" onClick={() => navigate("/contract")}>Contrat</button>
-          <button className="btn-primary" onClick={() => navigate("/app")}>Lancer l'app</button>
+          <button className="btn-outline" onClick={() => navigate("/contract")}>{ t('nav.contract') }</button>
+          <button className="btn-primary" onClick={() => navigate("/app")}>{ t('nav.launch') }</button>
         </div>
       </nav>
 
@@ -160,13 +163,13 @@ export default function LandingPage() {
             borderRadius: "100px", padding: "0.35rem 1rem", fontSize: "0.75rem", color: "#FFD700",
             letterSpacing: "0.05em", marginBottom: "2rem", animation: "fadeIn 0.8s ease 0.2s both" }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#FFD700", display: "inline-block" }} />
-            DEVNET — BIENTÔT MAINNET
+            { t('hero.badge') }
           </div>
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(3rem, 7vw, 5.5rem)",
             fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", marginBottom: "1.5rem",
             animation: "fadeIn 0.8s ease 0.3s both" }}>
             Monétise ton<br />audience.<br />
-            <span style={{ color: "#FFD700" }}>Sans intermédiaire.</span>
+            <span style={{ color: "#FFD700" }}>{ t('hero.title3') }</span>
           </h1>
           <p style={{ fontSize: "1.15rem", color: "#999", lineHeight: 1.7, maxWidth: 520, marginBottom: "2.5rem",
             fontWeight: 300, animation: "fadeIn 0.8s ease 0.4s both" }}>
@@ -206,7 +209,7 @@ export default function LandingPage() {
       {/* Comment ça marche */}
       <section>
         <AnimSection>
-          <span className="label">Protocole</span>
+          <span className="label">{ t('nav.protocol') }</span>
           <h2 style={{ marginBottom: "3rem" }}>Simple pour le créateur.<br /><span style={{ color: "#555" }}>Puissant pour le fan.</span></h2>
         </AnimSection>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1px", background: "rgba(255,255,255,0.06)" }}>
@@ -231,7 +234,7 @@ export default function LandingPage() {
       {/* Tiers */}
       <section id="tiers">
         <AnimSection>
-          <span className="label">Membership</span>
+          <span className="label">{ t('nav.membership') }</span>
           <h2 style={{ marginBottom: "3rem" }}>Trois niveaux.<br /><span style={{ color: "#555" }}>Un seul protocole.</span></h2>
         </AnimSection>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
@@ -318,10 +321,10 @@ export default function LandingPage() {
         display: "flex", justifyContent: "space-between", alignItems: "center",
         maxWidth: 1100, margin: "0 auto", color: "#444", fontSize: "0.8rem" }}>
         <div style={{ fontFamily: "'Playfair Display', serif", color: "#FFD700", fontSize: "1.1rem" }}>⭐ Fave</div>
-        <div>Protocole open source — Solana devnet</div>
+        <div>{ t('footer.open_source') }</div>
         <div style={{ display: "flex", gap: "1.5rem" }}>
           <a href="https://github.com/KilliannH/fave_protocol" target="_blank" style={{ color: "#444", textDecoration: "none" }}>GitHub</a>
-          <a onClick={() => navigate("/contract")} style={{ color: "#444", textDecoration: "none", cursor: "pointer" }}>Contrat</a>
+          <a onClick={() => navigate("/contract")} style={{ color: "#444", textDecoration: "none", cursor: "pointer" }}>{ t('nav.contract') }</a>
         </div>
       </footer>
     </>

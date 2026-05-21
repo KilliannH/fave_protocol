@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LangSwitcher from "./LangSwitcher";
 
 const PROGRAM_ID = "3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU";
 
@@ -11,6 +13,7 @@ const INSTRUCTIONS = [
 ];
 
 export default function ContractPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (

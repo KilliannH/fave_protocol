@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LangSwitcher from "./LangSwitcher";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { getCreators, type Creator } from "./api";
 
 export default function CreatorsPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [creators, setCreators] = useState<Creator[]>([]);
   const [filtered, setFiltered] = useState<Creator[]>([]);
   const [search, setSearch] = useState("");
@@ -52,14 +55,14 @@ export default function CreatorsPage() {
         </h1>
 
         <input
-          placeholder="Rechercher un créateur..."
+          placeholder="{ t('creators_page.search_placeholder') }"
           value={search}
           onChange={e => setSearch(e.target.value)}
           style={{ marginBottom: "2rem" }}
         />
 
         {loading ? (
-          <div style={{ textAlign: "center", color: "#555", padding: "4rem" }}>Chargement...</div>
+          <div style={{ textAlign: "center", color: "#555", padding: "4rem" }}>{ t('creators_page.loading') }</div>
         ) : filtered.length === 0 ? (
           <div style={{ textAlign: "center", color: "#555", padding: "4rem" }}>
             {search ? `Aucun résultat pour "${search}"` : "Aucun créateur encore — sois le premier !"}
