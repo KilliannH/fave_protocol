@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useTranslation } from "react-i18next";
 import { getCreator, updateCreator, type Creator } from "./api";
 import { useS3Upload } from "./useS3Upload";
-import LangSwitcher from "./LangSwitcher";
+import Nav from "./Nav";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -76,20 +75,7 @@ export default function ProfilePage() {
         .upload-zone:hover { border-color: rgba(255,215,0,0.3); }
       `}</style>
 
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-        padding: "1.25rem 2rem", borderBottom: "1px solid rgba(255,215,0,0.08)" }}>
-        <div onClick={() => navigate("/")} style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#FFD700", cursor: "pointer" }}>⭐ Fave</div>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <LangSwitcher />
-          {wallet.publicKey && (
-            <button onClick={() => navigate(`/dashboard/${wallet.publicKey!.toBase58()}`)}
-              style={{ background: "transparent", border: "1px solid #333", borderRadius: 4, padding: "0.5rem 1rem", color: "#888", cursor: "pointer", fontSize: "0.85rem" }}>
-              {t("profile_page.dashboard")}
-            </button>
-          )}
-          <WalletMultiButton />
-        </div>
-      </nav>
+      <Nav />
 
       <div style={{ maxWidth: 620, margin: "4rem auto", padding: "0 2rem" }}>
         <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "1rem" }}>

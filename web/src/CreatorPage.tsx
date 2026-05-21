@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { PublicKey, SystemProgram, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from "@solana/spl-token";
 import { useTranslation } from "react-i18next";
 import idl from "./idl";
 import { getCreator, registerSubscription } from "./api";
-import LangSwitcher from "./LangSwitcher";
+import Nav from "./Nav";
 
 const PROGRAM_ID = new PublicKey("3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU");
 const PROTOCOL_TREASURY = new PublicKey("D9P8Uqmxvtg9mr16GGFA2z7fFwWBYKuDMFpDYioiVFbt");
@@ -195,15 +194,7 @@ export default function CreatorPage() {
         .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
       `}</style>
 
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-        padding: "1.25rem 2rem", borderBottom: "1px solid rgba(255,215,0,0.08)",
-        background: "rgba(8,8,8,0.95)", position: "sticky", top: 0, zIndex: 50 }}>
-        <div onClick={() => navigate("/")} style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#FFD700", cursor: "pointer" }}>⭐ Fave</div>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <LangSwitcher />
-          <WalletMultiButton />
-        </div>
-      </nav>
+      <Nav />
 
       <main style={{ maxWidth: 800, margin: "0 auto", padding: "0 2rem 3rem" }}>
 

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LangSwitcher from "./LangSwitcher";
+import Nav from "./Nav";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
@@ -58,19 +57,7 @@ export default function DashboardPage() {
         body { background: #080808; color: #e8e8e0; font-family: 'DM Sans', sans-serif; }
       `}</style>
 
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-        padding: "1.25rem 2rem", borderBottom: "1px solid rgba(255,215,0,0.08)" }}>
-        <div onClick={() => navigate("/")} style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#FFD700", cursor: "pointer" }}>⭐ Fave</div>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          {wallet.publicKey?.toBase58() === address && (
-            <button onClick={() => navigate("/profile")}
-              style={{ background: "transparent", border: "1px solid #333", borderRadius: 4, padding: "0.5rem 1rem", color: "#888", cursor: "pointer", fontSize: "0.85rem" }}>
-              Éditer le profil
-            </button>
-          )}
-          <WalletMultiButton />
-        </div>
-      </nav>
+      <Nav />
 
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "3rem 2rem" }}>
         {loading ? (

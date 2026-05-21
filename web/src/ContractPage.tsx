@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LangSwitcher from "./LangSwitcher";
+import Nav from "./Nav";
 
 const PROGRAM_ID = "3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU";
 
@@ -27,15 +27,7 @@ export default function ContractPage() {
         a { color: #FFD700; text-decoration: none; } a:hover { text-decoration: underline; }
       `}</style>
 
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-        padding: "1.25rem 3rem", borderBottom: "1px solid rgba(255,215,0,0.08)" }}>
-        <div onClick={() => navigate("/")} style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#FFD700", cursor: "pointer" }}>⭐ Fave</div>
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <button onClick={() => navigate("/create")} style={{ background: "#FFD700", color: "#080808", border: "none", borderRadius: 4, padding: "0.5rem 1.25rem", cursor: "pointer", fontWeight: 500 }}>
-            Créer ma membership
-          </button>
-        </div>
-      </nav>
+      <Nav />
 
       <div style={{ maxWidth: 860, margin: "4rem auto", padding: "0 2rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
         <div>

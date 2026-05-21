@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LangSwitcher from "./LangSwitcher";
+import Nav from "./Nav";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { getCreators, type Creator } from "./api";
 
@@ -40,13 +40,7 @@ export default function CreatorsPage() {
         .card:hover { border-color: rgba(255,215,0,0.2); transform: translateY(-2px); }
       `}</style>
 
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-        padding: "1.25rem 2rem", borderBottom: "1px solid rgba(255,215,0,0.08)" }}>
-        <div onClick={() => navigate("/")} style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#FFD700", cursor: "pointer" }}>⭐ Fave</div>
-        <button onClick={() => navigate("/create")} style={{ background: "#FFD700", color: "#080808", border: "none", borderRadius: 4, padding: "0.5rem 1.25rem", cursor: "pointer", fontWeight: 500 }}>
-          Devenir créateur
-        </button>
-      </nav>
+      <Nav />
 
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "3rem 2rem" }}>
         <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "1rem" }}>Découvrir</span>
