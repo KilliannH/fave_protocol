@@ -39,7 +39,7 @@ export default function DashboardPage() {
     }
   }, [wallet.publicKey, address]);
 
-  const totalActiveSubs = data?.active_subs.reduce((acc, s) => acc + parseInt(s.count), 0) || 0;
+  const totalActiveSubs = (data?.active_subs ?? []).reduce((acc, s) => acc + parseInt(s.count), 0) || 0;
   const revenueSOL = data ? (data.total_revenue_lamports / LAMPORTS_PER_SOL).toFixed(4) : "0";
 
   const statCard = (value: string | number, label: string, color = "#FFD700") => (
