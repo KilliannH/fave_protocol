@@ -43,13 +43,13 @@ export default function CreatorsPage() {
       <Nav />
 
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "3rem 2rem" }}>
-        <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "1rem" }}>Découvrir</span>
+        <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "1rem" }}>{t("creators_page.label")}</span>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.5rem", marginBottom: "2rem" }}>
-          Les créateurs
+          {t("creators_page.title")}
         </h1>
 
         <input
-          placeholder="{ t('creators_page.search_placeholder') }"
+          placeholder={t("creators_page.search_placeholder")}
           value={search}
           onChange={e => setSearch(e.target.value)}
           style={{ marginBottom: "2rem" }}
@@ -59,7 +59,7 @@ export default function CreatorsPage() {
           <div style={{ textAlign: "center", color: "#555", padding: "4rem" }}>{ t('creators_page.loading') }</div>
         ) : filtered.length === 0 ? (
           <div style={{ textAlign: "center", color: "#555", padding: "4rem" }}>
-            {search ? `Aucun résultat pour "${search}"` : "Aucun créateur encore — sois le premier !"}
+            {search ? t("creators_page.no_results", { query: search }) : t("creators_page.empty")}
           </div>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
@@ -82,7 +82,7 @@ export default function CreatorsPage() {
                       {creator.name}
                       {creator.verified && <span style={{ color: "#FFD700", fontSize: "0.75rem" }}>✓</span>}
                     </div>
-                    <div style={{ color: "#555", fontSize: "0.75rem" }}>{creator.total_sold} abonnés</div>
+                    <div style={{ color: "#555", fontSize: "0.75rem" }}>{creator.total_sold} {t("creators_page.subscribers")}</div>
                   </div>
                 </div>
                 {creator.bio && (
@@ -96,10 +96,10 @@ export default function CreatorsPage() {
                     { tier: "Bronze", price: creator.price_bronze, color: "#CD7F32" },
                     { tier: "Silver", price: creator.price_silver, color: "#C0C0C0" },
                     { tier: "Gold",   price: creator.price_gold,   color: "#FFD700" },
-                  ].map(t => (
-                    <span key={t.tier} style={{ background: `${t.color}11`, border: `1px solid ${t.color}33`,
-                      borderRadius: 4, padding: "0.2rem 0.6rem", fontSize: "0.75rem", color: t.color }}>
-                      {(t.price / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                  ].map(tier => (
+                    <span key={tier.tier} style={{ background: `${tier.color}11`, border: `1px solid ${tier.color}33`,
+                      borderRadius: 4, padding: "0.2rem 0.6rem", fontSize: "0.75rem", color: tier.color }}>
+                      {(tier.price / LAMPORTS_PER_SOL).toFixed(2)} SOL
                     </span>
                   ))}
                 </div>
