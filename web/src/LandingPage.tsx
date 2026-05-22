@@ -139,7 +139,7 @@ export default function LandingPage() {
       <div className="grain" />
 
       <nav>
-        <div className="nav-logo" onClick={() => navigate("/")}>⭐ Fave</div>
+        <div className="nav-logo" onClick={() => navigate("/")}><img src="/fave-token-logo-256.png" alt="Fave" style={{width:32,height:32,borderRadius:"50%",marginRight:"0.5rem",verticalAlign:"middle"}} />Fave</div>
         <div className="nav-links">
           <a onClick={() => navigate("/creators")} style={{color:"#888",fontSize:"0.875rem",textDecoration:"none",letterSpacing:"0.05em",textTransform:"uppercase",cursor:"pointer"}}>Créateurs</a>
           <a onClick={() => document.getElementById("protocol")?.scrollIntoView({ behavior: "smooth" })}>{ t('nav.protocol') }</a>
@@ -320,7 +320,7 @@ export default function LandingPage() {
       <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "2rem 3rem",
         display: "flex", justifyContent: "space-between", alignItems: "center",
         maxWidth: 1100, margin: "0 auto", color: "#444", fontSize: "0.8rem" }}>
-        <div style={{ fontFamily: "'Playfair Display', serif", color: "#FFD700", fontSize: "1.1rem" }}>⭐ Fave</div>
+        <div style={{ fontFamily: "'Playfair Display', serif", color: "#FFD700", fontSize: "1.1rem" }}><img src="/fave-token-logo-256.png" alt="Fave" style={{width:32,height:32,borderRadius:"50%",marginRight:"0.5rem",verticalAlign:"middle"}} />Fave</div>
         <div>{ t('footer.open_source') }</div>
         <div style={{ display: "flex", gap: "1.5rem" }}>
           <a href="https://github.com/KilliannH/fave_protocol" target="_blank" style={{ color: "#444", textDecoration: "none" }}>GitHub</a>

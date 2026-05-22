@@ -22,7 +22,7 @@ export default function Nav() {
     }}>
       <div onClick={() => navigate("/")}
         style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#FFD700", cursor: "pointer" }}>
-        ⭐ Fave
+        <img src="/fave-token-logo-256.png" alt="Fave" style={{width:32,height:32,borderRadius:"50%",marginRight:"0.5rem",verticalAlign:"middle"}} />Fave
       </div>
 
       <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
