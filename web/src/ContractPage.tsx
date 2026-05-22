@@ -148,7 +148,6 @@ export default function ContractPage() {
               { ok: true,  label: t("contract_page.sec2") },
               { ok: true,  label: t("contract_page.sec3") },
               { ok: true,  label: t("contract_page.sec4") },
-              { ok: false, label: t("contract_page.sec5") },
             ].map((item, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <span style={{ color: item.ok ? "#4a4" : "#a84", fontSize: "0.85rem" }}>{item.ok ? "✓" : "○"}</span>

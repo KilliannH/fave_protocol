@@ -166,7 +166,6 @@ export default {
     "sec2": "PDAs dérivées — pas d'adresses arbitraires",
     "sec3": "Protection overflow sur tous les calculs",
     "sec4": "Seul le créateur peut modifier ses prix",
-    "sec5": "Audit de sécurité externe — prévu avant mainnet",
     "become_creator": "Créer ma membership"
   }
 } as const;
