@@ -51,8 +51,8 @@ export default function Nav() {
             {label}
           </span>
         ))}
-        {wallet.publicKey && (
-          <>
+        <>
+        {wallet.publicKey && isCreator && (
             <span onClick={() => navigate(`/dashboard/${wallet.publicKey!.toBase58()}`)}
               style={{
                 color: isActive(`/dashboard/${wallet.publicKey.toBase58()}`) ? "#FFD700" : "#666",
@@ -61,6 +61,8 @@ export default function Nav() {
               }}>
               Dashboard
             </span>
+            )}
+          {wallet.publicKey && (
             <span onClick={() => navigate("/profile")}
               style={{
                 color: isActive("/profile") ? "#FFD700" : "#666",
@@ -69,8 +71,8 @@ export default function Nav() {
               }}>
               {t("profile_page.label")}
             </span>
-          </>
         )}
+        </>
       </div>
 
       <div style={{ display: "flex", gap: "0.875rem", alignItems: "center" }}>
