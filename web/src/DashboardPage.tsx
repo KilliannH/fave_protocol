@@ -97,7 +97,7 @@ export default function DashboardPage() {
                     const sub = data?.active_subs.find(s => s.tier === tier);
                     const count = sub ? parseInt(sub.count) : 0;
                     const pct = totalActiveSubs > 0 ? (count / totalActiveSubs) * 100 : 0;
-                    const price = data?.creator[`price_${tier}` as keyof typeof data?.creator] as number;
+                    const price = data?.creator?.[`price_${tier}` as keyof typeof data?.creator] as number;
                     return (
                       <div key={tier}>
                         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
