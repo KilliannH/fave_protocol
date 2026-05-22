@@ -4,7 +4,7 @@ import en from "./locales/en";
 import fr from "./locales/fr";
 
 // Force EN — supporte en, en-GB, en-US, etc.
-const lng = navigator.language.startsWith("fr") ? "fr" : "en";
+const lng = "en";
 
 i18n
   .use(initReactI18next)
