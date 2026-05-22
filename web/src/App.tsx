@@ -16,7 +16,7 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import "./styles.css";
 
 export default function App() {
-  const endpoint = clusterApiUrl(NETWORK as any);
+  const endpoint = import.meta.env.VITE_RPC_URL || clusterApiUrl(NETWORK as any);
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 
   return (
