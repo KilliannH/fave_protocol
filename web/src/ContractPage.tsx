@@ -16,9 +16,9 @@ export default function ContractPage() {
   const { t } = useTranslation();
 
 const INSTRUCTIONS = [
-  { name: "initialize_membership", desc: t("contract_page.ix_init_desc"),   args: [...] },
-  { name: "buy_subscription",      desc: t("contract_page.ix_buy_desc"),    args: [...] },
-  { name: "update_prices",         desc: t("contract_page.ix_update_desc"), args: [...] },
+  { name: "initialize_membership", desc: t("contract_page.ix_init_desc"),   args: ["name: String", "price_bronze: u64", "price_silver: u64", "price_gold: u64"] },
+  { name: "buy_subscription",      desc: t("contract_page.ix_buy_desc"),    args: ["tier: Tier (Bronze | Silver | Gold)"] },
+  { name: "update_prices",         desc: t("contract_page.ix_update_desc"), args: ["price_bronze: u64", "price_silver: u64", "price_gold: u64"] },
   { name: "check_subscription",    desc: t("contract_page.ix_check_desc"),  args: [] },
 ];
 
