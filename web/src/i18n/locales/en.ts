@@ -166,7 +166,18 @@ export default {
     "sec2": "PDAs derived — no arbitrary addresses",
     "sec3": "Overflow protection on all calculations",
     "sec4": "Only creator can modify their prices",
-    "sec5": "External security audit — planned before mainnet",
-    "become_creator": "Create my membership"
+    "become_creator": "Create my membership",
+    "token_section": "Token $FAVE — Mainnet",
+    "mint_address": "Mint address",
+    "network_mainnet": "Solana Mainnet",
+    "total_supply": "Total supply",
+    "supply_fixed": "Revoked ✓ — fixed supply",  // fr: "Révoquée ✓ — supply fixée"
+    "view_explorer": "Solana Explorer ↗",
+    "view_solscan": "Solscan ↗",
+    "devnet_link": "Programme (devnet) →",
+    "ix_init_desc": "Deploys a membership with 3 tiers and their SPL mints",
+    "ix_buy_desc": "Buys a 1-month subscription, receives an SPL token, 98/2% split",
+    "ix_update_desc": "Updates prices (creator only)",
+    "ix_check_desc": "Checks if a fan has an active subscription",
   }
 } as const;
