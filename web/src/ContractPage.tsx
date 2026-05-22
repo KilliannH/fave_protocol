@@ -11,16 +11,16 @@ import {
   EXPLORER_TOKEN,
 } from "./constants";
 
-const INSTRUCTIONS = [
-  { name: "initialize_membership", desc: "Déploie une membership avec 3 niveaux et leurs mints SPL", args: ["name: String", "price_bronze: u64", "price_silver: u64", "price_gold: u64"] },
-  { name: "buy_subscription", desc: "Achète un abonnement d'un mois, reçoit un SPL token, split 98/2%", args: ["tier: Tier (Bronze | Silver | Gold)"] },
-  { name: "update_prices", desc: "Met à jour les prix (créateur uniquement)", args: ["price_bronze: u64", "price_silver: u64", "price_gold: u64"] },
-  { name: "check_subscription", desc: "Vérifie si un fan a un abonnement actif", args: [] },
-];
-
 export default function ContractPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+const INSTRUCTIONS = [
+  { name: "initialize_membership", desc: t("contract_page.ix_init_desc"),   args: [...] },
+  { name: "buy_subscription",      desc: t("contract_page.ix_buy_desc"),    args: [...] },
+  { name: "update_prices",         desc: t("contract_page.ix_update_desc"), args: [...] },
+  { name: "check_subscription",    desc: t("contract_page.ix_check_desc"),  args: [] },
+];
 
   return (
     <>
@@ -74,15 +74,15 @@ export default function ContractPage() {
         {/* Token $FAVE */}
         <div className="card">
           <h2 style={{ fontSize: "0.8rem", fontWeight: 500, marginBottom: "1.5rem", color: "#888", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-            Token $FAVE — Mainnet
+            {t("contract_page.token_section")}
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
             {[
-              { label: "Mint address", value: FAVE_TOKEN_MINT, link: EXPLORER_TOKEN },
-              { label: "Réseau", value: "Solana Mainnet" },
-              { label: "Supply totale", value: `${FAVE_TOTAL_SUPPLY.toLocaleString()} $FAVE` },
-              { label: "Décimales", value: String(FAVE_DECIMALS) },
-              { label: "Mint authority", value: "Révoquée ✓ — supply fixée" },
+              { label: t("contract_page.mint_address"), value: FAVE_TOKEN_MINT, link: EXPLORER_TOKEN },
+              { label: t("contract_page.blockchain"), value: "Solana Mainnet" },
+              { label: t("contract_page.total_supply"), value: `${FAVE_TOTAL_SUPPLY.toLocaleString()} $FAVE` },
+              { label: t("contract_page.decimals"), value: String(FAVE_DECIMALS) },
+              { label: t("contract_page.mint_authority"), value: t("contract_page.supply_fixed") },
             ].map((item, i, arr) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
                 padding: "0.875rem 0", borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
@@ -102,11 +102,11 @@ export default function ContractPage() {
           <div style={{ marginTop: "1.25rem", display: "flex", gap: "0.75rem" }}>
             <a href={EXPLORER_TOKEN} target="_blank"
               style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.5rem 1rem", fontSize: "0.82rem", color: "#ccc" }}>
-              Solana Explorer ↗
+              {t("contract_page.view_explorer")}
             </a>
             <a href={SOLSCAN_TOKEN} target="_blank"
               style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.5rem 1rem", fontSize: "0.82rem", color: "#ccc" }}>
-              Solscan ↗
+              {t("contract_page.view_solscan")}
             </a>
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function ContractPage() {
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a href={`https://explorer.solana.com/address/${FAVE_PROGRAM_ID}?cluster=devnet`} target="_blank"
             style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.75rem 1.5rem", color: "#ccc", fontSize: "0.9rem" }}>
-            Programme (devnet) →
+            {t("contract_page.devnet_link")}
           </a>
         </div>
       </div>

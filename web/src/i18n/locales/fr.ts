@@ -166,6 +166,18 @@ export default {
     "sec2": "PDAs dérivées — pas d'adresses arbitraires",
     "sec3": "Protection overflow sur tous les calculs",
     "sec4": "Seul le créateur peut modifier ses prix",
-    "become_creator": "Créer ma membership"
+    "become_creator": "Créer ma membership",
+    "token_section": "Jeton $FAVE — Réseau principal",
+    "mint_address": "Adresse d'émission",
+    "network_mainnet": "Réseau principal Solana",
+    "total_supply": "Offre totale",
+    "supply_fixed": "Révoquée ✓ — offre fixe",
+    "view_explorer": "Explorateur Solana ↗",
+    "view_solscan": "Solscan ↗",
+    "devnet_link": "Programme (réseau de développement) →",
+    "ix_init_desc": "Déploie un abonnement avec 3 niveaux et leurs émissions de SPL",
+    "ix_buy_desc": "Achète un abonnement d'un mois, reçoit un jeton SPL, répartition 98/2%",
+    "ix_update_desc": "Met à jour les prix (créateur uniquement)",
+    "ix_check_desc": "Vérifie si un fan a un abonnement actif",
   }
 } as const;
