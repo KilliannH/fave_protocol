@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useTranslation } from "react-i18next";
 import { getCreator, updateCreator, type Creator } from "./api";
 import { useS3Upload } from "./useS3Upload";
