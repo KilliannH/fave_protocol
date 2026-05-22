@@ -323,7 +323,7 @@ export default function LandingPage() {
         <div style={{ fontFamily: "'Playfair Display', serif", color: "#FFD700", fontSize: "1.1rem" }}><img src="/fave-token-logo-256.png" alt="Fave" style={{width:32,height:32,borderRadius:"50%",marginRight:"0.5rem",verticalAlign:"middle"}} />Fave</div>
         <div>{ t('footer.open_source') }</div>
         <div style={{ display: "flex", gap: "1.5rem" }}>
-          <a href="https://github.com/KilliannH/fave_protocol" target="_blank" style={{ color: "#444", textDecoration: "none" }}>GitHub</a>
+          <a href="https://t.me/faveprotocol" target="_blank" style={{ color: "#444", textDecoration: "none" }}>Telegram</a>
           <a onClick={() => navigate("/contract")} style={{ color: "#444", textDecoration: "none", cursor: "pointer" }}>{ t('nav.contract') }</a>
         </div>
       </footer>
