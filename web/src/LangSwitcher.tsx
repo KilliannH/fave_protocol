@@ -5,10 +5,15 @@ export default function LangSwitcher() {
   const { i18n } = useTranslation();
   const current = i18n.language?.startsWith("fr") ? "fr" : "en";
 
+  const handleChange = (lang: string) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("lang", lang);
+  };
+
   return (
     <div style={{ display: "flex", gap: "0.25rem", background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.2rem" }}>
       {["en", "fr"].map(lang => (
-        <button key={lang} onClick={() => i18n.changeLanguage(lang)}
+        <button key={lang} onClick={() => handleChange(lang)}
           style={{
             background: current === lang ? "#FFD700" : "transparent",
             color: current === lang ? "#080808" : "#666",

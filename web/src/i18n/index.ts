@@ -3,8 +3,9 @@ import { initReactI18next } from "react-i18next";
 import en from "./locales/en";
 import fr from "./locales/fr";
 
-// Force EN — supporte en, en-GB, en-US, etc.
-const lng = "en";
+const saved = localStorage.getItem("lang");
+const browser = navigator.language.startsWith("fr") ? "fr" : "en";
+const lng = saved ?? browser;
 
 i18n
   .use(initReactI18next)
