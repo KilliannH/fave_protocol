@@ -75,14 +75,56 @@ export default function CreatorPage() {
   };
 
   useEffect(() => {
-    if (!creatorKey) { setNotFound(true); setFetching(false); return; }
-    loadMembership();
-    loadDbProfile();
-  }, [address]);
+  if (!creatorKey) { setNotFound(true); setFetching(false); return; }
+  loadPage();
+}, [address]);
+
 
   useEffect(() => {
     if (wallet.publicKey && creatorKey) loadSubscription();
   }, [wallet.publicKey, address]);
+
+const loadPage = async () => {
+  setFetching(true);
+  // 1. DB d'abord (rapide, fiable)
+  const profile = await getCreator(address!);
+  if (profile) {
+    setDbProfile(profile);
+    setMembership({
+      name: profile.name,
+      priceBronze: profile.price_bronze,
+      priceSilver: profile.price_silver,
+      priceGold: profile.price_gold,
+      totalSold: profile.total_sold,
+    });
+    setFetching(false);
+    // 2. RPC en arrière-plan pour enrichir si dispo
+    loadMembershipFromChain();
+  } else {
+    // Pas en DB → tente le RPC
+    await loadMembership();
+  }
+};
+
+const loadMembershipFromChain = async () => {
+  if (!creatorKey) return;
+  try {
+    const provider = new anchor.AnchorProvider(connection, {} as anchor.Wallet, {});
+    const program = new anchor.Program(idl as anchor.Idl, provider);
+    const pda = getMembershipPda(creatorKey);
+    const acc = await (program.account as any).membership.fetch(pda);
+    // Enrichit avec les données on-chain si disponibles
+    setMembership(prev => prev ? {
+      ...prev,
+      priceBronze: acc.priceBronze.toNumber(),
+      priceSilver: acc.priceSilver.toNumber(),
+      priceGold: acc.priceGold.toNumber(),
+      totalSold: acc.totalSold.toNumber(),
+    } : null);
+  } catch {
+    // RPC KO → on garde les données DB, pas de 404
+  }
+};
 
   const loadMembership = async () => {
     if (!creatorKey) return;
