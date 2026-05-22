@@ -10,9 +10,10 @@ i18n
   .init({
     resources: { en: { translation: en }, fr: { translation: fr } },
     fallbackLng: "en",
+    lng: "en",
     defaultNS: "translation",
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage"],
       caches: ["localStorage"],
     },
     interpolation: { escapeValue: false },
