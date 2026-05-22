@@ -40,7 +40,7 @@ export default function DashboardPage() {
   }, [wallet.publicKey, address]);
 
   const totalActiveSubs = (data?.active_subs ?? []).reduce((acc, s) => acc + parseInt(s.count), 0) || 0;
-  const revenueSOL = data ? (data.total_revenue_lamports / LAMPORTS_PER_SOL).toFixed(4) : "0";
+  const revenueSOL = data ? (data?.total_revenue_lamports / LAMPORTS_PER_SOL).toFixed(4) : "0";
 
   const statCard = (value: string | number, label: string, color = "#FFD700") => (
     <div style={{ background: "#0c0c0c", border: "1px solid #1a1a1a", borderRadius: 10, padding: "1.5rem", textAlign: "center" }}>
@@ -81,7 +81,7 @@ export default function DashboardPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
               {statCard(totalActiveSubs, "Abonnés actifs")}
               {statCard(`${revenueSOL}`, "SOL gagnés", "#4a4")}
-              {statCard(data.creator.total_sold, "Total abonnements")}
+              {statCard(data?.creator.total_sold, "Total abonnements")}
             </div>
 
             {/* Répartition par tier */}
@@ -89,15 +89,15 @@ export default function DashboardPage() {
               <h2 style={{ fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: "1.25rem" }}>
                 Répartition par niveau
               </h2>
-              {data.active_subs.length === 0 ? (
+              {data?.active_subs.length === 0 ? (
                 <p style={{ color: "#333", fontSize: "0.9rem" }}>Pas encore d'abonnés.</p>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
                   {["bronze", "silver", "gold"].map(tier => {
-                    const sub = data.active_subs.find(s => s.tier === tier);
+                    const sub = data?.active_subs.find(s => s.tier === tier);
                     const count = sub ? parseInt(sub.count) : 0;
                     const pct = totalActiveSubs > 0 ? (count / totalActiveSubs) * 100 : 0;
-                    const price = data.creator[`price_${tier}` as keyof typeof data.creator] as number;
+                    const price = data?.creator[`price_${tier}` as keyof typeof data?.creator] as number;
                     return (
                       <div key={tier}>
                         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
@@ -119,13 +119,13 @@ export default function DashboardPage() {
               <h2 style={{ fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: "1.25rem" }}>
                 Derniers abonnés
               </h2>
-              {data.recent_subscribers.length === 0 ? (
+              {data?.recent_subscribers.length === 0 ? (
                 <p style={{ color: "#333", fontSize: "0.9rem" }}>Pas encore d'abonnés.</p>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-                  {data.recent_subscribers.map((sub, i) => (
+                  {data?.recent_subscribers.map((sub, i) => (
                     <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-                      padding: "0.875rem 0", borderBottom: i < data.recent_subscribers.length - 1 ? "1px solid #111" : "none" }}>
+                      padding: "0.875rem 0", borderBottom: i < data?.recent_subscribers.length - 1 ? "1px solid #111" : "none" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
                         <div style={{ width: 32, height: 32, borderRadius: "50%",
                           background: `${TIER_COLORS[sub.tier]}22`, border: `1px solid ${TIER_COLORS[sub.tier]}44`,

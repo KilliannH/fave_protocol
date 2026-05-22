@@ -16,8 +16,9 @@ export default function Nav() {
 
   useEffect(() => {
     if (!wallet.publicKey) { setIsCreator(false); return; }
-    getCreator(wallet.publicKey.toBase58()).then(c => setIsCreator(!!c)).catch(() => setIsCreator(false));
-  }, [wallet.publicKey]);
+    const addr = wallet.publicKey.toBase58();
+    getCreator(addr).then(c => setIsCreator(!!c)).catch(() => setIsCreator(false));
+  }, [wallet.publicKey?.toBase58()]);
 
   const isActive = (path: string) => location.pathname === path;
 
