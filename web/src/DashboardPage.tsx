@@ -81,7 +81,7 @@ export default function DashboardPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
               {statCard(totalActiveSubs, "Abonnés actifs")}
               {statCard(`${revenueSOL}`, "SOL gagnés", "#4a4")}
-              {statCard(data?.creator.total_sold, "Total abonnements")}
+              {statCard(data?.creator?.total_sold ?? 0, t("dashboard_page.total_subs"))}
             </div>
 
             {/* Répartition par tier */}
