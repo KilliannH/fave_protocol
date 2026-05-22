@@ -4,3 +4,5 @@ target/
 dist/
 .anchor/
 test-ledger/
+.env*
+.env

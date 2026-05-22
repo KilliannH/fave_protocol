@@ -1,4 +1,4 @@
-export const FAVE_TOKEN_MINT = "CCsfkVFgr3EGyctYJ9mqoy1iFyVgXzoXB6U2THnAmvXt";
+export const FAVE_TOKEN_MINT = "JCJcYgehYPRFTAwdYp5UQcyAHYcAT33C6WWWS4iFjrgx";
 export const FAVE_PROGRAM_ID = "3qqA8JTRKQ28AZmqzs9bqSonsJGJjybaTdChKV1HneeU";
 export const PROTOCOL_TREASURY = "D9P8Uqmxvtg9mr16GGFA2z7fFwWBYKuDMFpDYioiVFbt";
 export const NETWORK = "mainnet-beta";

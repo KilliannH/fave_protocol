@@ -1,0 +1,17 @@
+{
+  "name": "Fave Protocol",
+  "symbol": "FAVE",
+  "description": "Fave is a creator membership protocol on Solana. Fans subscribe directly to their favorite creators, who keep 98% of revenue.",
+  "image": "https://faveprotocol-assets.s3.eu-west-3.amazonaws.com/token/logo.png",
+  "external_url": "https://faveprotocol.xyz",
+  "attributes": [],
+  "properties": {
+    "files": [
+      {
+        "uri": "https://faveprotocol-assets.s3.eu-west-3.amazonaws.com/token/logo.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "fungible"
+  }
+}
