@@ -158,7 +158,7 @@ export default {
     "addresses": "Addresses",
     "program_id": "Program ID",
     "network": "Network",
-    "network_value": "Solana Devnet (→ Mainnet soon)",
+    "network_value": "Solana Mainnet)",
     "language": "Language",
     "instructions": "Instructions",
     "security": "Security",
