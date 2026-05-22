@@ -159,10 +159,6 @@ export default function ContractPage() {
 
         {/* Liens */}
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <a href="https://github.com/KilliannH/fave_protocol" target="_blank"
-            style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.75rem 1.5rem", color: "#ccc", fontSize: "0.9rem" }}>
-            GitHub →
-          </a>
           <a href={`https://explorer.solana.com/address/${FAVE_PROGRAM_ID}?cluster=devnet`} target="_blank"
             style={{ background: "#111", border: "1px solid #222", borderRadius: 6, padding: "0.75rem 1.5rem", color: "#ccc", fontSize: "0.9rem" }}>
             Programme (devnet) →

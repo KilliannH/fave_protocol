@@ -90,47 +90,47 @@ export default function CreateMembership() {
 
       <div style={{ maxWidth: 560, margin: "5rem auto", padding: "0 2rem" }}>
         <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "1rem" }}>
-          Créateur
+          {t("create_page.label")}
         </span>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.5rem", fontWeight: 700, marginBottom: "0.75rem", lineHeight: 1.15 }}>
-          Lance ta membership
+          {t("create_page.title")}
         </h1>
         <p style={{ color: "#666", marginBottom: "3rem", lineHeight: 1.7 }}>
-          Déploie ton contrat d'abonnement en une transaction. Tes fans pourront s'abonner directement depuis leur wallet Solana.
+          {t("create_page.description")}
         </p>
 
         {!wallet.publicKey ? (
           <div style={{ textAlign: "center", padding: "3rem", border: "1px solid #222", borderRadius: 12 }}>
-            <p style={{ color: "#666", marginBottom: "1.5rem" }}>Connecte ton wallet pour continuer</p>
+            <p style={{ color: "#666", marginBottom: "1.5rem" }}>{t("create_page.connect_prompt")}</p>
             <WalletMultiButton />
           </div>
         ) : success ? (
           <div style={{ background: "#0a1a0a", border: "1px solid #1a4a1a", borderRadius: 12, padding: "2rem", textAlign: "center" }}>
             <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>✅</div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", marginBottom: "0.75rem" }}>Membership créée !</h2>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", marginBottom: "0.75rem" }}>{t("create_page.success_title")}</h2>
             <p style={{ color: "#666", fontSize: "0.85rem", marginBottom: "1.5rem", fontFamily: "monospace", wordBreak: "break-all" }}>
-              Tx : {success}
+              {t("create_page.success_tx")} {success}
             </p>
             <a href={`https://explorer.solana.com/tx/${success}`} target="_blank"
               style={{ color: "#FFD700", fontSize: "0.85rem", display: "block", marginBottom: "1.5rem" }}>
-              Voir sur Solana Explorer →
+              {t("create_page.view_explorer")}
             </a>
             <button onClick={() => navigate(`/creator/${wallet.publicKey?.toBase58()}`)} style={{ background: "#FFD700", color: "#080808", border: "none", borderRadius: 4, padding: "0.75rem 1.5rem", cursor: "pointer", fontWeight: 500 }}>
-              Voir ma page →
+              {t("create_page.view_page")}
             </button>
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             <div>
-              <label>Nom de ta chaîne</label>
-              <input value={name} onChange={e => setName(e.target.value)} placeholder="Ex: MaChaine" maxLength={32} />
+              <label>{t("create_page.channel_name")}</label>
+              <input value={name} onChange={e => setName(e.target.value)} placeholder={t("create_page.channel_placeholder")} maxLength={32} />
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
               {[
-                { label: "🥉 Bronze (SOL)", value: priceBronze, set: setPriceBronze, color: "#CD7F32" },
-                { label: "🥈 Silver (SOL)", value: priceSilver, set: setPriceSilver, color: "#C0C0C0" },
-                { label: "🥇 Gold (SOL)",   value: priceGold,   set: setPriceGold,   color: "#FFD700" },
+                { label: t("create_page.bronze_price"), value: priceBronze, set: setPriceBronze, color: "#CD7F32" },
+                { label: t("create_page.silver_price"), value: priceSilver, set: setPriceSilver, color: "#C0C0C0" },
+                { label: t("create_page.gold_price"),   value: priceGold,   set: setPriceGold,   color: "#FFD700" },
               ].map((tier, i) => (
                 <div key={i}>
                   <label style={{ color: tier.color }}>{tier.label}</label>
@@ -143,7 +143,7 @@ export default function CreateMembership() {
 
             {error && (
               <div style={{ background: "#1a0a0a", border: "1px solid #4a1a1a", borderRadius: 8, padding: "1rem", color: "#ff6666", fontSize: "0.85rem" }}>
-                {error.includes("already in use") ? "Tu as déjà une membership active sur ce wallet." : error}
+                {error.includes("already in use") ? t("create_page.already_exists") : error}
               </div>
             )}
 
@@ -151,11 +151,11 @@ export default function CreateMembership() {
               style={{ background: "#FFD700", color: "#080808", border: "none", borderRadius: 6,
                 padding: "1rem", fontSize: "1rem", fontWeight: 500, cursor: loading || !name ? "not-allowed" : "pointer",
                 opacity: loading || !name ? 0.5 : 1, transition: "opacity 0.2s" }}>
-              {loading ? "Transaction en cours..." : "Créer ma membership →"}
+              {loading ? t("create_page.submitting") : t("create_page.submit")}
             </button>
 
             <p style={{ color: "#444", fontSize: "0.8rem", textAlign: "center" }}>
-              Frais de déploiement : ~0.01 SOL (rent Solana)
+              {t("create_page.deploy_cost")}
             </p>
           </div>
         )}
@@ -163,4 +163,3 @@ export default function CreateMembership() {
     </>
   );
 }
-// À ajouter dans handleCreate après le rpc() réussi
