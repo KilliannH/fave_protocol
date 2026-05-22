@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getCreator } from "./api";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useTranslation } from "react-i18next";
@@ -10,6 +12,12 @@ export default function Nav() {
   const location = useLocation();
   const wallet = useWallet();
   const { t } = useTranslation();
+  const [isCreator, setIsCreator] = useState(false);
+
+  useEffect(() => {
+    if (!wallet.publicKey) { setIsCreator(false); return; }
+    getCreator(wallet.publicKey.toBase58()).then(c => setIsCreator(!!c)).catch(() => setIsCreator(false));
+  }, [wallet.publicKey]);
 
   const isActive = (path: string) => location.pathname === path;
 

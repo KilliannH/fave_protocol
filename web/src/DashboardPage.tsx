@@ -69,7 +69,7 @@ export default function DashboardPage() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
               <div>
                 <span style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#FFD700", display: "block", marginBottom: "0.5rem" }}>Dashboard</span>
-                <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2rem" }}>{data.creator.name}</h1>
+                <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2rem" }}>{data?.creator?.name ?? "—"}</h1>
               </div>
               <button onClick={() => navigate(`/creator/${address}`)}
                 style={{ background: "transparent", border: "1px solid #333", borderRadius: 4, padding: "0.625rem 1.25rem", color: "#888", cursor: "pointer", fontSize: "0.85rem" }}>
